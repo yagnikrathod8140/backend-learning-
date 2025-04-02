@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "backend.js",
+  "scripts": {
+    "start": "node scripts.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "yagnik",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "accessibility": "^5.0.0",
+    "one-liner-joke": "^1.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
