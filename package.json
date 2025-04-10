@@ -1,20 +1,15 @@
 {
-  "name": "backend",
+  "name": "backend-learning-",
   "version": "1.0.0",
-  "main": "script.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node script.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "yagnik",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "accessibility": "^5.0.0",
-    "express": "^5.1.0",
-    "one-liner-joke": "^1.2.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.9"
+    "express": "^5.1.0"
   }
 }
