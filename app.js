@@ -1,39 +1,48 @@
 const express = require('express');
 const app = express();
+const path = require('path')
+const userModel = require('./models/user');
 
-const userModel = require("./usermodul")
+app.set("view engine", "ejs");
+app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    res.send('hey')
+    res.render("index");
 })
 
-app.get('/create', async (req, res) => {
-    let createduser = await userModel.create({
-        name: "isha",
-        email: "isha@gmail.com",
-        username: "isha"
-    })
-    res.send(createduser);
-})
-
-app.get('/update', async (req, res) => {
-    let updateduser = await userModel.findOneAndUpdate({username: "yagnik"}, {name: "yagnik rathod"}, {new: true})
-    res.send(updateduser);
-})
-
-app.get('/read', async (req, res) => {
+app.get('/read', async(req, res) => {
     let users = await userModel.find();
-    res.send(users);
+    res.render("read", {users});
 })
 
-app.get('/read-1', async (req, res) => {
-    let users = await userModel.findOne({username:"isha"});
-    res.send(users);
+app.get('/edit/:userid', async(req, res) => {
+    let user = await userModel.findOne({_id: req.params.userid});
+    res.render("edit", {user});
 })
 
-app.get('/delete', async (req, res) => {
-    let users = await userModel.findOneAndDelete({username:"isha"});
-    res.send(users);
+app.post('/update/:userid', async(req, res) => {
+    let {image, name, email} = req.body
+    let user = await userModel.findOneAndUpdate({_id: req.params.userid}, {image, name, email}, {new:true});
+    res.redirect("/read");
 })
 
-app.listen(3000)
+app.get('/delete/:id', async(req, res) => {
+    let users = await userModel.findOneAndDelete({_id: req.params.id});
+    res.redirect("/read");
+})
+
+app.post('/create', async(req, res) => {
+    let {name, email, image} = req.body;
+
+    let createdUser = await userModel.create({
+        name,
+        email,
+        image
+    })
+
+    res.redirect('/read')
+})
+
+app.listen(3000);
